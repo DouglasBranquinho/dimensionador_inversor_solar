@@ -71,6 +71,7 @@ class _CalculadoraInversorState extends State<CalculadoraInversor> {
                           capacidadeBateria = int.tryParse(value) ?? 0;
                         });
                       },
+                      isNumeric: true, // Campo numérico
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -156,9 +157,12 @@ class _CalculadoraInversorState extends State<CalculadoraInversor> {
   Widget _buildTextField({
     required String label,
     required Function(String) onChanged,
+    bool isNumeric = false, // Parâmetro para controlar o tipo de teclado
   }) {
     return TextField(
-      keyboardType: TextInputType.number,
+      keyboardType: isNumeric
+          ? TextInputType.number
+          : TextInputType.text, // Teclado dinâmico
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
@@ -213,6 +217,7 @@ class _AparelhoWidgetState extends State<AparelhoWidget> {
           onChanged: (value) {
             widget.aparelho.nome = value;
           },
+          isNumeric: false, // Campo de texto
         ),
         SizedBox(height: 10), // Espaço entre os campos
         _buildTextField(
@@ -220,6 +225,7 @@ class _AparelhoWidgetState extends State<AparelhoWidget> {
           onChanged: (value) {
             widget.aparelho.potencia = double.tryParse(value) ?? 0;
           },
+          isNumeric: true, // Campo numérico
         ),
         SizedBox(height: 10), // Espaço entre os campos
         _buildTextField(
@@ -227,6 +233,7 @@ class _AparelhoWidgetState extends State<AparelhoWidget> {
           onChanged: (value) {
             widget.aparelho.tempoUso = double.tryParse(value) ?? 0;
           },
+          isNumeric: true, // Campo numérico
         ),
         SizedBox(height: 10), // Espaço entre os campos
         Row(
@@ -247,10 +254,15 @@ class _AparelhoWidgetState extends State<AparelhoWidget> {
     );
   }
 
-  Widget _buildTextField(
-      {required String label, required Function(String) onChanged}) {
+  Widget _buildTextField({
+    required String label,
+    required Function(String) onChanged,
+    bool isNumeric = false, // Parâmetro para controlar o tipo de teclado
+  }) {
     return TextField(
-      keyboardType: TextInputType.number,
+      keyboardType: isNumeric
+          ? TextInputType.number
+          : TextInputType.text, // Teclado dinâmico
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
